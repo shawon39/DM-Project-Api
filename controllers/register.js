@@ -12,9 +12,9 @@ const handleRegister = (req, res, client, bcrypt) => {
 
         if (err) return res.status('400').json('Unable to register');
 
-        const insertQuery = 'INSERT INTO users("firstName", "lastName", "designation", "username", "email") VALUES($1, $2, $3, $4, $5) RETURNING *';
+        const insertQuery = 'INSERT INTO users("firstName", "lastName", "designation", "username", "email", "role") VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
 
-        client.query(insertQuery, [firstName, lastName, designation, username, email], (err, resultAll) => {
+        client.query(insertQuery, [firstName, lastName, designation, username, email, "user"], (err, resultAll) => {
 
             if (err) return res.status('400').json('Unable to register');
 
@@ -41,3 +41,8 @@ const handleRegister = (req, res, client, bcrypt) => {
 module.exports = {
     handleRegister: handleRegister
 };
+
+// INSERT INTO meeting("title", "meeting_type", "venue", "description","m_code", "s_time", "e_time",
+// 				   "isFinished", "user_list")
+// VALUES ("Dept Meeting", "LOl", "CSE dept", "Bla blaa blaa", "12ds2e", "'01-01-2017 10:2', 'DD-MM-YYYY SS:MS'", 
+// 	   "'01-01-2017 10:2', 'DD-MM-YYYY SS:MS'", "TRUE", '{"shawon","Rakib"}');
